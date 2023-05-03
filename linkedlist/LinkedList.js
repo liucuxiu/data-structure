@@ -24,7 +24,48 @@ class LinkedList {
   }
 
   insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value)
+    }
+    if (index <= 0) {
+      return this.prepend(value)
+    }
+    const nodeAtIndex = this.traverseToIndex(index)
+    const newNode = new Node(value)
+    newNode.next = nodeAtIndex.next
+    nodeAtIndex.next = newNode
 
+    this.length++
+  }
+
+  remove(index) {
+    const nodeBefore = this.traverseToIndex(index - 1)
+    const unwantedNode = nodeBefore.next
+    nodeBefore.next = unwantedNode.next
+
+    this.length--
+  }
+
+  traverseToIndex(index) {
+    let currentNode = this.head
+    let count = 0;
+    while (currentNode !== null) {
+      if (count === index) {
+        return currentNode
+      }
+      count++
+      currentNode = currentNode.next
+    }
+  }
+
+  printList() {
+    const array = []
+    let currentNode = this.head
+    while (currentNode !== null) {
+      array.push(currentNode.value)
+      currentNode = currentNode.next
+    }
+    return array
   }
 }
 
