@@ -40,6 +40,7 @@ const traverseToIndex = (head, index) => {
     currentNode = currentNode.next
   }
 }
+
 printList = (head) => {
   const array = []
   let currentNode = head
