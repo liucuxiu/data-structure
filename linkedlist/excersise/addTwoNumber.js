@@ -1,9 +1,6 @@
-function ListNode(val, next) {
-  this.val = (val === undefined ? 0 : val);
-  this.next = (next === undefined ? null : next);
-}
+const ListNode = require('./common/ListNode')
 
-const addTwoNumbers = function (l1, l2) {
+const addTwoNumber = function (l1, l2) {
   const dummyHead = new ListNode(0);
   let currentNode = dummyHead;
   let carry = 0;
@@ -38,4 +35,4 @@ const addTwoNumbers = function (l1, l2) {
 const l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
 const l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
 
-console.log(addTwoNumbers(l1, l2));
+console.log(addTwoNumber(l1, l2));

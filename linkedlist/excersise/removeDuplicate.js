@@ -1,7 +1,4 @@
-function ListNode(val, next) {
-  this.val = (val === undefined ? 0 : val);
-  this.next = (next === undefined ? null : next);
-}
+const ListNode = require('./common/ListNode')
 
 function removeDuplicate(head) {
   let currentNode = head
