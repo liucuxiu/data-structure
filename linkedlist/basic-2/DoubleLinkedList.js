@@ -1,48 +1,65 @@
-const Node = require('./Node')
-
-class LinkedList {
+class Node {
   constructor(value) {
-    this.head = new Node(value);
-    this.tail = this.head;
-    this.length = 1;
+    this.value = value
+    this.next = null
+    this.prev = null
+  }
+}
+
+class DoubleLinkedList {
+  constructor(value) {
+    this.head = new Node(value)
+    this.tail = this.head
+    this.length = 1
   }
 
   append(value) {
     const newNode = new Node(value)
-    this.tail.next = newNode;
-    this.tail = newNode;
-    this.length++;
-    return this;
+    this.tail.next = newNode
+    newNode.prev = this.tail
+
+    this.tail = newNode
+    this.length++
+    return this
   }
 
   prepend(value) {
     const newNode = new Node(value)
     newNode.next = this.head
+    this.head.prev = newNode
+
     this.head = newNode
     this.length++
     return this
   }
 
   insert(index, value) {
-    if (index >= this.length) {
+    if (index >= this.length - 1 ) {
       return this.append(value)
     }
-    if (index <= 0) {
+    if (index < 0) {
       return this.prepend(value)
     }
     const nodeAtIndex = this.traverseToIndex(index)
     const newNode = new Node(value)
-    newNode.next = nodeAtIndex.next
+    const nextNode = nodeAtIndex.next
+
+    newNode.next = nextNode
+    newNode.prev = nodeAtIndex
+
     nodeAtIndex.next = newNode
+    nextNode.prev = newNode
 
     this.length++
   }
 
   remove(index) {
-    const nodeBefore = this.traverseToIndex(index - 1)
-    const unwantedNode = nodeBefore.next
-    nodeBefore.next = unwantedNode.next
+    const nodeAtIndex = this.traverseToIndex(index)
+    const prevNode = nodeAtIndex.prev
+    const nextNode = nodeAtIndex.next
 
+    prevNode.next = nextNode
+    nextNode.prev = prevNode
     this.length--
   }
 
@@ -68,26 +85,16 @@ class LinkedList {
     return array
   }
 
-  reverse() {
-    if (!this.head.next) {
-      return this.head
-    }
-    let firstNode = this.head
-    this.tail = this.head
-
-    let second = firstNode.next
-
-    while (second) {
-      const temp = second.next
-      second.next = firstNode
-      firstNode = second
-      second = temp
-    }
-    this.head.next = null
-    this.head = firstNode
-    return this
-  }
-
 }
+const linkedList = new DoubleLinkedList(1)
+linkedList.append(2)
+linkedList.append(3)
+linkedList.append(4)
 
-module.exports = LinkedList;
+linkedList.prepend(0)
+
+linkedList.insert(3, "a")
+linkedList.remove(3)
+
+console.log(linkedList)
+console.log(linkedList.printList())

@@ -19,9 +19,7 @@ linkedList.append(16)
 linkedList.prepend(1)
 // 1 - 10 - 5 -16
 linkedList.insert(2, 99)
-console.log(linkedList.printList())
 
-linkedList.remove(3)
-
+linkedList.reverse()
 console.log(linkedList.printList())
 console.log(linkedList);
